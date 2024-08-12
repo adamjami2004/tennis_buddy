@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image,TextInput, Button, Modal, ActivityIndicator, Linking, StatusBar, ImageBackground } from 'react-native';
-import { AntDesign, Entypo, Feather, MaterialIcons } from '@expo/vector-icons';
+import { AntDesign, Entypo, Feather, FontAwesome6, MaterialIcons } from '@expo/vector-icons';
 import { SafeAreaView , Animated} from 'react-native';
 import { collection, doc, setDoc, addDoc, getDoc,getDocs, where, query, getFirestore } from "firebase/firestore";
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -12,7 +12,8 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import Shop from './Shop';
 import Profil from './Profil';
 import Ball from './Ball';
-// import {LinearGradient} from 'expo-linear-gradient';
+import CalendarScreen from './calendar';
+
 
 
 
@@ -25,16 +26,22 @@ let screenHeight = Dimensions.get('window').height;
 
 
 
-export default function Menu({  }) {
+export default function Menu({}) {
+
+    
 
     const Feed = ({ user, time, date, location, type}) => {
         return (
-            <View style={{borderRadius:10, borderWidth:1, width:'90%', alignSelf:'center', height:screenHeight*0.3, marginBottom:10, borderColor:'#c2c1c1'}}>
+            <View style={{borderRadius:10, borderWidth:1, width:'90%', alignSelf:'center', height:screenHeight*0.33, marginBottom:10, borderColor:'#c2c1c1'}}>
                 <View style={{width:'90%', marginTop:2, marginLeft:5,height:'30%' , flexDirection:'row', alignItems:'center', }}>
                     <View style={{marginRight:20, marginLeft:10, backgroundColor:'black', borderRadius:100, height:screenHeight*0.05, width:screenHeight*0.05, alignItems:'center',  justifyContent:'center'}}>
                         <Text style={{color:'white', padding:10, fontWeight:'bold', fontSize:20}}>N</Text>
                     </View>
-                    <Text style={{fontWeight:'bold', fontSize:17}}>{user} Is looking to play {type}</Text>
+                    <Text style={{fontWeight:'bold', fontSize:17, marginLeft:-10}}>{user}'s game</Text>
+                    <View style={{position:'absolute', right:2, flexDirection:'row', alignItems:'center'}}>
+                        <Ionicons name='person' size={14} style={{marginRight:3}}/>  
+                        <Text>3/4</Text>
+                    </View>
                 </View>
                 <View style={{width:'90%', height:'50%', marginLeft:15,}}>
                     <View style={{flexDirection:'row', alignItems:'center', marginBottom:8}}>
@@ -48,6 +55,10 @@ export default function Menu({  }) {
                     <View style={{flexDirection:'row', alignItems:'center', marginBottom:8}}>
                         <Feather name='watch' size={24} style={{marginRight:10}}/>
                         <Text style={{fontWeight:'500'}}>{time}</Text>
+                    </View>
+                    <View style={{flexDirection:'row', alignItems:'center', marginBottom:8}}>
+                        <FontAwesome6 name='people-group' size={24} style={{marginRight:10}}/>
+                        <Text style={{fontWeight:'500'}}>{type}</Text>
                     </View>
                 </View>
                 <View style={{ height:'25%', width:'90%', alignSelf:'center', marginTop:-20, justifyContent:'center', flexDirection:'row', alignItems:'center'}}>
@@ -76,8 +87,11 @@ export default function Menu({  }) {
                         </View>
                         </View>
                     </View>
+                    
+                    
 
                 </View>
+                
                 
             </View>
         );
@@ -123,6 +137,11 @@ export default function Menu({  }) {
 
     const profile = () => {
         setStep(5);
+        console.log("Y")
+    };
+    const calendargo = () => {
+        setStep(6);
+        console.log("Y")
     };
 
     const TennisTV = () => {
@@ -151,7 +170,7 @@ export default function Menu({  }) {
                                 <Text style={styles.profiltitle}>Tennis buddy</Text>
                             </View>
                             <View style={styles.right_title}>
-                                <AntDesign name="calendar" size={24} color="white" />
+                                <AntDesign name="calendar" size={24} color="white" onPress={calendargo}/>
                                 <AntDesign style={{marginHorizontal:15}} name="message1" size={24} color="white"/>
                                 <AntDesign style={{marginRight:20}} name="notification" size={24} color="white"/>
 
@@ -244,12 +263,36 @@ export default function Menu({  }) {
 
                         </View> 
                         {/* Feed*/}
-                        <ScrollView vertical showsHorizontalScrollIndicator={true}>
-                            <Feed source={require('./assets/novak_JO.jpg')} 
-                                user='Novak'
-                                location='Saint-Germain Park'
-                                time='6pm-9pm'
-                                date='Friday 15th Aug'     
+                        
+                        <ScrollView
+                            vertical
+                            showsVerticalScrollIndicator={false}
+                            style={{  width: '96%', alignSelf: 'center', height: '55%' }}
+                            maintainVisibleContentPosition={{ minIndexForVisible: 0, autoscrollToTopThreshold: 50 }}
+                        >
+                            <Feed 
+                                source={require('./assets/novak_JO.jpg')} 
+                                user="Adam"
+                                location="Saint-Germain Park"
+                                time="6pm-9pm"
+                                date="Friday 15th Aug"
+                                type="Doubles"   
+                            />
+                            <Feed 
+                                source={require('./assets/novak_JO.jpg')} 
+                                user="Novak"
+                                location="Saint-Germain Park"
+                                time="6pm-9pm"
+                                date="Friday 15th Aug"
+                                type="Doubles"   
+                            />
+                            <Feed 
+                                source={require('./assets/novak_JO.jpg')} 
+                                user="Carlos"
+                                location="Saint-Germain Park"
+                                time="6pm-9pm"
+                                date="Friday 15th Aug"
+                                type="Doubles"   
                             />
                         </ScrollView>
                     </View>
@@ -266,6 +309,10 @@ export default function Menu({  }) {
             case 5:
                 return (
                     <Profil/>
+                )
+            case 6:
+                return (
+                    <CalendarScreen/>
                 )
 
             default:

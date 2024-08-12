@@ -9,6 +9,7 @@ import Shop from './screens/Shop';
 import Profil from './screens/Profil';
 import Ball from './screens/Ball';
 import Sign from './screens/Sign';
+import CalendarScreen from './screens/calendar';
 
 
 
@@ -19,7 +20,7 @@ const InsideStack= createNativeStackNavigator();
 
 export default function App() {
  
-
+  
 
   
   return (
@@ -32,6 +33,7 @@ export default function App() {
         <Stack.Screen name="Profil" component={Profil}/>
         <Stack.Screen name="Ball" component={Ball}/>
         <Stack.Screen name="Sign" component={Sign}/>
+        <Stack.Screen name="Calendar" component={CalendarScreen}/>
 
       </Stack.Navigator>
 
