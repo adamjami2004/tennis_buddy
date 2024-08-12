@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image,TextInput, Button, Modal, ActivityIndicator, Linking, StatusBar, ImageBackground } from 'react-native';
-import { AntDesign, Entypo, MaterialIcons } from '@expo/vector-icons';
+import { AntDesign, Entypo, Feather, MaterialIcons } from '@expo/vector-icons';
 import { SafeAreaView , Animated} from 'react-native';
 import { collection, doc, setDoc, addDoc, getDoc,getDocs, where, query, getFirestore } from "firebase/firestore";
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -9,6 +9,9 @@ import { Dimensions , Platform, ScrollView} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import Shop from './Shop';
+import Profil from './Profil';
+import Ball from './Ball';
 // import {LinearGradient} from 'expo-linear-gradient';
 
 
@@ -23,6 +26,62 @@ let screenHeight = Dimensions.get('window').height;
 
 
 export default function Menu({  }) {
+
+    const Feed = ({ user, time, date, location, type}) => {
+        return (
+            <View style={{borderRadius:10, borderWidth:1, width:'90%', alignSelf:'center', height:screenHeight*0.3, marginBottom:10, borderColor:'#c2c1c1'}}>
+                <View style={{width:'90%', marginTop:2, marginLeft:5,height:'30%' , flexDirection:'row', alignItems:'center', }}>
+                    <View style={{marginRight:20, marginLeft:10, backgroundColor:'black', borderRadius:100, height:screenHeight*0.05, width:screenHeight*0.05, alignItems:'center',  justifyContent:'center'}}>
+                        <Text style={{color:'white', padding:10, fontWeight:'bold', fontSize:20}}>N</Text>
+                    </View>
+                    <Text style={{fontWeight:'bold', fontSize:17}}>{user} Is looking to play {type}</Text>
+                </View>
+                <View style={{width:'90%', height:'50%', marginLeft:15,}}>
+                    <View style={{flexDirection:'row', alignItems:'center', marginBottom:8}}>
+                        <Entypo name='calendar' size={24} style={{marginRight:10}}/>
+                        <Text style={{fontWeight:'500'}}>{date}</Text>
+                    </View>
+                    <View style={{flexDirection:'row', alignItems:'center', marginBottom:8}}>
+                        <AntDesign name='enviroment' size={24} style={{marginRight:10}}/>
+                        <Text style={{fontWeight:'500'}}>{location}</Text>
+                    </View>
+                    <View style={{flexDirection:'row', alignItems:'center', marginBottom:8}}>
+                        <Feather name='watch' size={24} style={{marginRight:10}}/>
+                        <Text style={{fontWeight:'500'}}>{time}</Text>
+                    </View>
+                </View>
+                <View style={{ height:'25%', width:'90%', alignSelf:'center', marginTop:-20, justifyContent:'center', flexDirection:'row', alignItems:'center'}}>
+                   
+                   <View style={{backgroundColor:'black', width:'15%', marginLeft:5, alignItems:'center', flexDirection:'row', height:50, borderRadius:100, justifyContent:'center', position:'absolute', bottom:5, right:5, width:50}}>
+                        <MaterialIcons name='more-horiz' color='white' size={24} />
+                    </View>
+
+                    <View style={{ marginLeft: 10, justifyContent: 'center', alignItems: 'center', height: '70%' ,  position:'absolute', bottom:10, left:0 }}>
+                        <View style={{ justifyContent: 'center', height: '100%', flexDirection: 'row' }}>
+                        {/* First spot - filled */}
+                        <View style={{ backgroundColor: 'black', width: 50, height: 50, borderRadius: 100, justifyContent: 'center', alignItems: 'center', marginRight: -8 }}>
+                            <Text style={{ color: 'white', fontSize: 20, fontWeight: '500' }}>A</Text>
+                        </View>
+                        {/* Second spot - filled */}
+                        <View style={{ backgroundColor: '#3c3b3b', width: 50, height: 50, borderRadius: 100, justifyContent: 'center', alignItems: 'center', marginRight: -8 }}>
+                            <Text style={{ color: 'white', fontSize: 20, fontWeight: '500' }}>N</Text>
+                        </View>
+                        {/* Third spot - empty */}
+                        <View style={{ backgroundColor: '#818181', width: 50, height: 50, borderRadius: 100, justifyContent: 'center', alignItems: 'center', marginRight: -8 }}>
+                            <Text style={{ color: 'white', fontSize: 20, fontWeight: '500' }}>D</Text>
+                        </View>
+                        {/* Fourth spot - empty */}
+                        <View style={{ backgroundColor: '#c2c1c1', width: 50, height: 50, borderRadius: 100, justifyContent: 'center', alignItems: 'center', marginRight: -8 }}>
+                            <Text style={{ color: 'black', fontSize: 20, fontWeight: '500' }}></Text>
+                        </View>
+                        </View>
+                    </View>
+
+                </View>
+                
+            </View>
+        );
+    };
 
     const [menuOpen, setMenuOpen] = useState(false);
     const slideAnim = useRef(new Animated.Value(-screenWidth)).current;
@@ -84,7 +143,7 @@ export default function Menu({  }) {
         switch (step) {
             case 1:
                 return (
-                    <View>
+                    <View style={{backgroundColor:'#fafafa'}}>
                         <View style={styles.containertitleprofil}>
                             <View style={styles.left_title}>
                                 <AntDesign style={{marginRight:20}} name="menu-fold" size={24} color="white" onPress={toggleMenu}/>
@@ -108,7 +167,7 @@ export default function Menu({  }) {
                                 </TouchableOpacity>
 
                                 <View style={{marginBottom:40, flexDirection:'row', height:'3%', alignItems:'center'}}>
-                                    <View style={{backgroundColor:'white' , marginRight:20, height:'120%', width:'15%', borderRadius:100, alignItems:'center', justifyContent:'center'}}><Text style={{fontSize:25, fontWeight:'bold'}}>A</Text></View>
+                                    <View style={{backgroundColor:'white' , marginRight:20, height:50,width:50, borderRadius:100, alignItems:'center', justifyContent:'center'}}><Text style={{fontSize:25, fontWeight:'bold'}}>A</Text></View>
                                     <Text style={{color:"white", fontWeight:'bold', fontSize:22}}>Adam Jami</Text>
                                 </View>
 
@@ -135,41 +194,41 @@ export default function Menu({  }) {
                             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.line1}>
                                 <View style={styles.unit}>
                                     <TouchableOpacity style={styles.line2_gauche}>
-                                        <AntDesign name="youtube" size={24} color="red" />
+                                        <AntDesign name="youtube" size={32} color="red" />
                                     </TouchableOpacity>
                                     <Text style={styles.quick}>Tutorials</Text>
                                 </View>
                                 <View style={styles.unit}>
                                     <TouchableOpacity style={styles.line2_gauche} onPress={profile}>
-                                        <AntDesign name="qrcode" size={26} color="black" />
+                                        <AntDesign name="qrcode" size={32} color="black" />
                                     </TouchableOpacity>
                                     <Text style={styles.quick}>QR Code</Text>
                                 </View>
                                 
                                 <View style={styles.unit}>
                                     <TouchableOpacity style={styles.line2}>
-                                        <MaterialIcons name="sports-tennis" size={24} color="black" />
+                                        <MaterialIcons name="sports-tennis" size={32} color="black" />
                                     </TouchableOpacity>
                                     <Text style={styles.quick}>Practice</Text>
 
                                 </View>
                                 <View style={styles.unit}>
                                     <TouchableOpacity style={styles.line2_droite}>
-                                        <Fontisto name="comments" size={24} color="black" />
+                                        <Fontisto name="comments" size={32} color="black" />
                                     </TouchableOpacity>
                                     <Text style={styles.quick}>F.A.Q</Text>
 
                                 </View>
                                 <View style={styles.unit}>
                                     <TouchableOpacity style={styles.line2} onPress={Rankings}>
-                                        <AntDesign name="star" size={24} color="black" />
+                                        <AntDesign name="star" size={32} color="black" />
                                     </TouchableOpacity>
                                     <Text style={styles.quick}> Rankings</Text>
 
                                 </View>
                                 <View style={styles.unit}>
                                     <TouchableOpacity style={styles.line2_droite} onPress={TennisTV}>
-                                        <Icon name="tv" size={24} color="black" />
+                                        <Icon name="tv" size={32} color="black" />
                                     </TouchableOpacity>
                                     <Text style={styles.quick}>ATP games</Text>
 
@@ -185,12 +244,29 @@ export default function Menu({  }) {
 
                         </View> 
                         {/* Feed*/}
-                        <ScrollView>
-
+                        <ScrollView vertical showsHorizontalScrollIndicator={true}>
+                            <Feed source={require('./assets/novak_JO.jpg')} 
+                                user='Novak'
+                                location='Saint-Germain Park'
+                                time='6pm-9pm'
+                                date='Friday 15th Aug'     
+                            />
                         </ScrollView>
                     </View>
                 );
 
+            case 3:
+                return (
+                    <Ball/>
+                )
+            case 4:
+                return (
+                    <Shop/>
+                )
+            case 5:
+                return (
+                    <Profil/>
+                )
 
             default:
                 return null;
