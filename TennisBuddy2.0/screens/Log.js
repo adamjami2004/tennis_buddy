@@ -1,13 +1,35 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons'; // Import FontAwesome for social icons
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { FIREBASE_AUTH } from '../firebase';
 
 export default function Login({navigation}) {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const auth= FIREBASE_AUTH;
 
     Menu = () => {
         navigation.navigate('Menu');
+    };
+    
+    
+        
+        
+        
+    const handleLogin = async () => {
+        
+        try{
+            const response = await signInWithEmailAndPassword(auth, email, password);
+            
+            Menu();
+        } catch (error){
+            console.log(error)
+            alert('Email or password Incorrect');
+        }finally{
+            console.log('end')
+        }
+
     };
 
     return (
@@ -37,7 +59,7 @@ export default function Login({navigation}) {
                     placeholderTextColor="#3a4328"
                     secureTextEntry
                 />
-                <TouchableOpacity style={styles.loginButton} onPress={Menu}>
+                <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
                     <Text style={styles.loginText}>Login</Text>
                 </TouchableOpacity>
                 

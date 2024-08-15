@@ -14,10 +14,11 @@ let screenWidth = Dimensions.get('window').width;
 let screenHeight = Dimensions.get('window').height;
 
 
-export default function Ball (){
+export default function Search (){
 
     const [menuOpen, setMenuOpen] = useState(false);
     const slideAnim = useRef(new Animated.Value(-screenWidth)).current;
+    const [user, setUser]=useState(false);
 
     const toggleMenu = () => {
         if (menuOpen) {
@@ -82,6 +83,19 @@ export default function Ball (){
 
                 </Animated.View>
             )}
+            
+
+            <View style={{alignSelf:'center', height:'30%', width:'92%', marginTop:30, alignItems:'center'}}>
+                <View style={{flexDirection:'row', alignItems:'center'}}>
+                    <Ionicons name='search' size={25} style={{marginRight:10}} />
+                    <TextInput
+                        placeholder='Search for a user name'
+                        value={user}
+                        onChangeText={setUser}
+                        style={[styles.input, { width: 250, paddingVertical: 12, borderWidth:1, borderColor:"black", borderRadius:10, padding:10}]} // Adjust width and padding
+                    />
+                </View>
+            </View>
 
         
       </View>

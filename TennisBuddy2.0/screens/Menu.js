@@ -13,6 +13,7 @@ import Shop from './Shop';
 import Profil from './Profil';
 import Ball from './Ball';
 import CalendarScreen from './calendar';
+import Search from './search';
 
 
 
@@ -26,7 +27,7 @@ let screenHeight = Dimensions.get('window').height;
 
 
 
-export default function Menu({}) {
+export default function Menu({navigation}) {
 
     
 
@@ -99,6 +100,8 @@ export default function Menu({}) {
 
     const [menuOpen, setMenuOpen] = useState(false);
     const slideAnim = useRef(new Animated.Value(-screenWidth)).current;
+    
+
 
     const toggleMenu = () => {
         if (menuOpen) {
@@ -116,6 +119,8 @@ export default function Menu({}) {
             }).start();
         }
     };
+
+    
 
     const [step, setStep] = useState(1);
 
@@ -209,65 +214,13 @@ export default function Menu({}) {
                         )}
                         
                         
-                        <View  style={styles.line}>
-                            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.line1}>
-                                <View style={styles.unit}>
-                                    <TouchableOpacity style={styles.line2_gauche}>
-                                        <AntDesign name="youtube" size={32} color="red" />
-                                    </TouchableOpacity>
-                                    <Text style={styles.quick}>Tutorials</Text>
-                                </View>
-                                <View style={styles.unit}>
-                                    <TouchableOpacity style={styles.line2_gauche} onPress={profile}>
-                                        <AntDesign name="qrcode" size={32} color="black" />
-                                    </TouchableOpacity>
-                                    <Text style={styles.quick}>QR Code</Text>
-                                </View>
-                                
-                                <View style={styles.unit}>
-                                    <TouchableOpacity style={styles.line2}>
-                                        <MaterialIcons name="sports-tennis" size={32} color="black" />
-                                    </TouchableOpacity>
-                                    <Text style={styles.quick}>Practice</Text>
-
-                                </View>
-                                <View style={styles.unit}>
-                                    <TouchableOpacity style={styles.line2_droite}>
-                                        <Fontisto name="comments" size={32} color="black" />
-                                    </TouchableOpacity>
-                                    <Text style={styles.quick}>F.A.Q</Text>
-
-                                </View>
-                                <View style={styles.unit}>
-                                    <TouchableOpacity style={styles.line2} onPress={Rankings}>
-                                        <AntDesign name="star" size={32} color="black" />
-                                    </TouchableOpacity>
-                                    <Text style={styles.quick}> Rankings</Text>
-
-                                </View>
-                                <View style={styles.unit}>
-                                    <TouchableOpacity style={styles.line2_droite} onPress={TennisTV}>
-                                        <Icon name="tv" size={32} color="black" />
-                                    </TouchableOpacity>
-                                    <Text style={styles.quick}>ATP games</Text>
-
-                                </View>
-                                <View style={styles.unit}>
-                                    <TouchableOpacity style={styles.line2_droite} onPress={TennisTV}>
-                                        <AntDesign name="twitter" size={24} color="light-blue" />
-                                    </TouchableOpacity>
-                                    <Text style={styles.quick}>Socials</Text>
-
-                                </View>
-                            </ScrollView>
-
-                        </View> 
-                        {/* Feed*/}
+                        
+                        
                         
                         <ScrollView
                             vertical
                             showsVerticalScrollIndicator={false}
-                            style={{  width: '96%', alignSelf: 'center', height: '55%' }}
+                            style={{  width: '96%', alignSelf: 'center', height: '75%', marginTop:15, }}
                             maintainVisibleContentPosition={{ minIndexForVisible: 0, autoscrollToTopThreshold: 50 }}
                         >
                             <Feed 
@@ -294,9 +247,53 @@ export default function Menu({}) {
                                 date="Friday 15th Aug"
                                 type="Doubles"   
                             />
+                            <Feed 
+                                source={require('./assets/novak_JO.jpg')} 
+                                user="Carlos"
+                                location="Saint-Germain Park"
+                                time="6pm-9pm"
+                                date="Friday 15th Aug"
+                                type="Doubles"   
+                            />
+                            <Feed 
+                                source={require('./assets/novak_JO.jpg')} 
+                                user="Carlos"
+                                location="Saint-Germain Park"
+                                time="6pm-9pm"
+                                date="Friday 15th Aug"
+                                type="Doubles"   
+                            />
+                            <Feed 
+                                source={require('./assets/novak_JO.jpg')} 
+                                user="Carlos"
+                                location="Saint-Germain Park"
+                                time="6pm-9pm"
+                                date="Friday 15th Aug"
+                                type="Doubles"   
+                            />
+                            <Feed 
+                                source={require('./assets/novak_JO.jpg')} 
+                                user="Carlos"
+                                location="Saint-Germain Park"
+                                time="6pm-9pm"
+                                date="Friday 15th Aug"
+                                type="Doubles"   
+                            />
                         </ScrollView>
+
+                        
+
+
+                        
                     </View>
                 );
+
+
+            
+            case 2:
+                return (
+                    <Search/>
+                )
 
             case 3:
                 return (
@@ -431,7 +428,38 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
         
     },
-    
+    bubbleButton: {
+        position: 'absolute',
+        bottom: 20,
+        left: 20,
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        backgroundColor: '#3c3c3c',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    bubblesContainer: {
+        position: 'absolute',
+        bottom: 100,
+        right: 20,
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    bubble: {
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        backgroundColor: '#C7D337',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+    bubbleText: {
+        color: 'white',
+        fontSize: 12,
+        fontWeight: 'bold',
+    },
 
     
    

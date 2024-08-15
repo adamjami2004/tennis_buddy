@@ -23,7 +23,7 @@ const CustomInput = ({ placeholder, icon, value, onChangeText }) => {
 
 
 
-const Sign = ({navigation}) => {
+const Sign = ({}) => {
 
 
 
@@ -59,12 +59,12 @@ const Sign = ({navigation}) => {
         { title: 'Intermediate', description: 'Fairly experienced' },
         { title: 'Intermediate+', description: 'Above average skill' },
         { title: 'Advanced', description: 'Highly skilled' },
-        { title: 'Expert', description: 'Top level expertise' },
+        { title: 'Expert', description: 'ITF Tour level' },
     ];
 
     const handleSelect = (level) => {
         setSelectedLevel(level);
-        setLevel(level);  // Set the chosen level
+        setLevel(level);  
         console.log(level)
     };
 
